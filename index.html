@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SUDO44 - Leonidas Name</title>
     
-    <meta property="fb:app_id" content="966242223397117" />
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="SUDO44 - El Reto Matemático">
-    <meta property="og:description" content="¿Podrás resolver la suma perfecta? Haz que cada cuadrante sume 44.">
-    <meta property="og:url" content="https://leonidasnamegomez.github.io/Sudo44/">
-    
-    <meta property="og:image" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=orange_final">
-    <meta property="og:image:secure_url" content="https://leonidasnamegomez.github.io/Sudo44/miniatura.jpg?v=orange_final">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1634052474293396');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1634052474293396&ev=PageView&noscript=1"
+    /></noscript>
     <style>
         :root {
             --color-fondo-app: #F36C21;
@@ -61,15 +64,22 @@
             font-weight: 800; color: white; margin: 0; font-size: 1.8rem;
         }
 
-        .instrucciones-juego {
-            color: white; text-align: center; width: 90%;
-            margin: 8px 0; font-size: 0.8rem; line-height: 1.2;
+        /* ESTILOS DEL MODAL DE REGLAS */
+        .modal-reglas {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center;
         }
+        .contenido-modal {
+            background: white; width: 85%; max-width: 320px; padding: 25px;
+            border-radius: 20px; text-align: center; border: 4px solid var(--color-primario);
+        }
+        .contenido-modal h3 { color: var(--color-primario); margin-top: 0; }
+        .contenido-modal p { font-size: 0.95rem; line-height: 1.4; color: #333; }
 
         .contenedor-numeros {
             display: flex; flex-wrap: wrap; justify-content: center;
             gap: 4px; padding: 6px; background: rgba(255,255,255,0.2);
-            border-radius: 12px; margin-bottom: 8px; width: 85%; border: 1px solid white;
+            border-radius: 12px; margin: 15px 0 8px 0; width: 85%; border: 1px solid white;
         }
 
         .num-disponible {
@@ -80,63 +90,37 @@
 
         .num-usado { background: rgba(0,0,0,0.4) !important; color: rgba(255,255,255,0.4) !important; text-decoration: line-through; }
 
-        /* TABLERO CON LÍNEAS CONTINUAS NEGRAS */
         #tablero-contenedor { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            width: 88%; 
-            max-width: 300px; 
-            gap: 5px; 
-            padding: 10px; 
-            background-color: rgba(255,255,255,0.15); 
-            border-radius: 15px; 
-            margin: 0 auto;
-            position: relative;
+            display: grid; grid-template-columns: repeat(4, 1fr); 
+            width: 88%; max-width: 300px; gap: 5px; padding: 10px; 
+            background-color: rgba(255,255,255,0.15); border-radius: 15px; 
+            margin: 0 auto; position: relative;
         }
 
-        /* Línea Vertical Continua Negra */
         #tablero-contenedor::before {
-            content: "";
-            position: absolute;
-            top: 10px; bottom: 10px;
-            left: 50%;
-            width: 4px;
-            background-color: #000000; /* CAMBIO A NEGRO */
-            transform: translateX(-50%);
-            z-index: 5;
-            pointer-events: none;
+            content: ""; position: absolute; top: 10px; bottom: 10px;
+            left: 50%; width: 4px; background-color: #000000;
+            transform: translateX(-50%); z-index: 5; pointer-events: none;
         }
 
-        /* Línea Horizontal Continua Negra */
         #tablero-contenedor::after {
-            content: "";
-            position: absolute;
-            left: 10px; right: 10px;
-            top: 50%;
-            height: 4px;
-            background-color: #000000; /* CAMBIO A NEGRO */
-            transform: translateY(-50%);
-            z-index: 5;
-            pointer-events: none;
+            content: ""; position: absolute; left: 10px; right: 10px;
+            top: 50%; height: 4px; background-color: #000000;
+            transform: translateY(-50%); z-index: 5; pointer-events: none;
         }
         
         .celda-sudoku {
             width: 100%; aspect-ratio: 1 / 1; background-color: white; 
             border: none; font-size: 1.3rem; font-weight: bold; 
             color: var(--color-texto-numeros); border-radius: 8px; 
-            text-align: center; box-sizing: border-box;
-            -moz-appearance: textfield;
-            position: relative;
-            z-index: 1;
+            text-align: center; box-sizing: border-box; z-index: 1;
         }
-        .celda-sudoku::-webkit-inner-spin-button, .celda-sudoku::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
         .celda-error { background-color: var(--rojo-error) !important; color: #d32f2f !important; }
 
         .enlace-web {
             position: absolute; bottom: calc(72px + env(safe-area-inset-bottom)); 
-            color: white; text-decoration: none; font-weight: bold; font-size: 0.8rem;
-            z-index: 20;
+            color: white; text-decoration: none; font-weight: bold; font-size: 0.8rem; z-index: 20;
         }
 
         .banner-politico {
@@ -163,14 +147,22 @@
 
         .area-controles {
             display: flex; flex-direction: column; align-items: center;
-            width: 100%; margin-top: 10px;
-            padding-bottom: 120px; 
+            width: 100%; margin-top: 10px; padding-bottom: 120px; 
         }
     </style>
 </head>
 <body onclick="iniciarMusica()">
 
     <audio id="musicaFondo" loop><source src="Version 2 Final.mp3" type="audio/mpeg"></audio>
+
+    <div id="modal-reglas" class="modal-reglas">
+        <div class="contenido-modal">
+            <h3>📜 REGLAS DEL JUEGO</h3>
+            <p>1. Utiliza números del <b>1 al 20</b> sin repetir ninguno.<br><br>
+               2. El objetivo es que cada <b>cuadrante de 2x2</b> sume exactamente <b>44</b>.</p>
+            <button onclick="cerrarReglas()" style="width: 100%; margin-top: 10px;">¡ENTENDIDO!</button>
+        </div>
+    </div>
 
     <div id="mensaje-victoria">
         <h2>✨ ¡SUDOKU COMPLETADO! ✨</h2>
@@ -198,9 +190,6 @@
 
     <div id="pantalla-juego" class="pantalla" style="display: none;">
         <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
-        <div class="instrucciones-juego">
-            <strong>REGLAS:</strong> Utiliza números del 1 al 20 sin repetir. <br>Cada cuadrante de 2x2 debe sumar 44.
-        </div>
         <div id="lista-numeros" class="contenedor-numeros"></div>
         <div id="tablero-contenedor"></div>
         
@@ -221,6 +210,10 @@
         let musicaIniciada = false;
 
         function iniciarMusica() { if (!musicaIniciada) { document.getElementById('musicaFondo').play().catch(() => {}); musicaIniciada = true; } }
+
+        function cerrarReglas() {
+            document.getElementById('modal-reglas').style.display = 'none';
+        }
 
         function actualizarUI() {
             const inputs = document.querySelectorAll('.celda-sudoku');
@@ -256,6 +249,9 @@
         function iniciarJuego() {
             document.getElementById('pantalla-menu').style.display = 'none';
             document.getElementById('pantalla-juego').style.display = 'flex';
+            // MOSTRAR REGLAS AL INICIAR
+            document.getElementById('modal-reglas').style.display = 'flex';
+            
             let t = Array.from({length: 4}, () => Array(4).fill(0));
             const sol = (tab) => {
                 const nums = Array.from({length: 20}, (_, i) => i + 1);
@@ -288,7 +284,6 @@
             for (let i = 0; i < 16; i++) {
                 const input = document.createElement('input');
                 input.type = 'number'; input.inputMode = "numeric"; input.className = 'celda-sudoku';
-                
                 if (ind.includes(i)) { 
                     input.value = tableroFinal[i]; 
                     input.readOnly = true; 
@@ -311,16 +306,12 @@
         function limpiarUsuario() { document.querySelectorAll('.celda-sudoku').forEach(i => { if(!i.readOnly) i.value = ''; }); actualizarUI(); }
         
         function compartirJuego() { 
-            const url = "https://leonidasnamegomez.github.io/Sudo44/?v=orange_update"; 
+            const url = "https://leonidasnamegomez.github.io/Sudo44/?v=rules_update"; 
             if (navigator.share) {
-                navigator.share({ 
-                    title: 'SUDO44', 
-                    text: '¡Acepta el reto de Leonidas Name!',
-                    url: url 
-                });
+                navigator.share({ title: 'SUDO44', text: '¡Acepta el reto de Leonidas Name!', url: url });
             } else {
                 navigator.clipboard.writeText(url); 
-                alert("¡Enlace copiado! Pégalo en WhatsApp y espera 5 segundos antes de enviar.");
+                alert("¡Enlace copiado!");
             }
         }
 
