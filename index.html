@@ -14,12 +14,9 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1634052474293396');
+    fbq('init', '944752851835894');
     fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1634052474293396&ev=PageView&noscript=1"
-    /></noscript>
     <style>
         :root {
             --color-fondo-app: #F36C21;
@@ -64,7 +61,6 @@
             font-weight: 800; color: white; margin: 0; font-size: 1.8rem;
         }
 
-        /* ESTILOS DEL MODAL DE REGLAS */
         .modal-reglas {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center;
@@ -73,8 +69,6 @@
             background: white; width: 85%; max-width: 320px; padding: 25px;
             border-radius: 20px; text-align: center; border: 4px solid var(--color-primario);
         }
-        .contenido-modal h3 { color: var(--color-primario); margin-top: 0; }
-        .contenido-modal p { font-size: 0.95rem; line-height: 1.4; color: #333; }
 
         .contenedor-numeros {
             display: flex; flex-wrap: wrap; justify-content: center;
@@ -134,7 +128,7 @@
             display: none; position: fixed; top: 50%; left: 50%; 
             transform: translate(-50%, -50%); background: white; 
             border: 5px solid var(--color-primario); padding: 25px; 
-            border-radius: 20px; z-index: 2000; text-align: center; 
+            border-radius: 20px; z-index: 4000; text-align: center; 
             width: 80%; max-width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
@@ -165,9 +159,11 @@
     </div>
 
     <div id="mensaje-victoria">
-        <h2>✨ ¡SUDOKU COMPLETADO! ✨</h2>
-        <p>Colombia gana con Leonidas Name</p>
-        <button onclick="location.reload()">Jugar de nuevo</button>
+        <h2 style="color: var(--color-primario); margin-top: 0;">✨ ¡Felicitaciones! ✨</h2>
+        <p>Has completado el reto.</p>
+        <p style="font-weight: bold; font-size: 0.95rem;">Recuerda el próximo 8 de marzo votar por el Frente Amplio Unitario #44</p>
+        <button onclick="location.reload()" style="margin-top: 10px;">JUGAR DE NUEVO</button>
+        <button onclick="compartirJuego()" style="margin-top: 8px;">COMPARTIR JUEGO</button>
     </div>
 
     <div id="pantalla-carga" class="pantalla">
@@ -249,7 +245,6 @@
         function iniciarJuego() {
             document.getElementById('pantalla-menu').style.display = 'none';
             document.getElementById('pantalla-juego').style.display = 'flex';
-            // MOSTRAR REGLAS AL INICIAR
             document.getElementById('modal-reglas').style.display = 'flex';
             
             let t = Array.from({length: 4}, () => Array(4).fill(0));
@@ -290,7 +285,12 @@
                     input.style.backgroundColor = "#F36C21"; 
                     input.style.color = "white"; 
                 }
-                input.oninput = () => { if(parseInt(input.value)>20) input.value=20; actualizarUI(); };
+                input.oninput = () => { 
+                    let v = parseInt(input.value);
+                    if(v > 20) input.value = 20; 
+                    if(v < 1) input.value = ''; // Bloqueo de negativos y cero
+                    actualizarUI(); 
+                };
                 cont.appendChild(input);
             }
             actualizarUI();
@@ -306,9 +306,9 @@
         function limpiarUsuario() { document.querySelectorAll('.celda-sudoku').forEach(i => { if(!i.readOnly) i.value = ''; }); actualizarUI(); }
         
         function compartirJuego() { 
-            const url = "https://leonidasnamegomez.github.io/Sudo44/?v=rules_update"; 
+            const url = "https://leonidasnamegomez.github.io/Sudo44/"; 
             if (navigator.share) {
-                navigator.share({ title: 'SUDO44', text: '¡Acepta el reto de Leonidas Name!', url: url });
+                navigator.share({ title: 'SUDO44', text: '¡Acepta el reto de Leonidas Name!', url: url }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(url); 
                 alert("¡Enlace copiado!");
