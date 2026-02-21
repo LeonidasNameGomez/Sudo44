@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SUDO44 - Leonidas Name</title>
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YXNDW67XN8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-YXNDW67XN8');
+    </script>
+
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -17,6 +25,7 @@
     fbq('init', '944752851835894');
     fbq('track', 'PageView');
     </script>
+
     <style>
         :root {
             --color-fondo-app: #F36C21;
@@ -124,7 +133,6 @@
 
         .celda-error { background-color: var(--rojo-error) !important; color: #d32f2f !important; }
 
-        /* AJUSTE HOMOGENIZADO: Posición de botones y enlace */
         .enlace-web {
             position: absolute; bottom: calc(72px + env(safe-area-inset-bottom)); 
             color: white; text-decoration: none; font-weight: bold; font-size: 0.8rem; z-index: 20;
@@ -152,7 +160,6 @@
             border-radius: 12px; text-transform: uppercase;
         }
 
-        /* AJUSTE HOMOGENIZADO: Contenedor inferior para botones */
         .area-controles {
             width: 100%; display: flex; flex-direction: column; align-items: center;
             margin-top: auto; padding-bottom: calc(95px + env(safe-area-inset-bottom));
@@ -265,6 +272,12 @@
         }
 
         function iniciarJuego() {
+            // EVENTO ANALYTICS: Juego Iniciado
+            gtag('event', 'juego_iniciado', {
+                'nombre_juego': 'Sudo44',
+                'dificultad': document.getElementById('dificultad').value
+            });
+
             document.getElementById('pantalla-menu').style.display = 'none';
             document.getElementById('pantalla-juego').style.display = 'flex';
             document.getElementById('modal-reglas').style.display = 'flex';
@@ -322,12 +335,17 @@
             const s = [vals[0]+vals[1]+vals[4]+vals[5], vals[2]+vals[3]+vals[6]+vals[7], vals[8]+vals[9]+vals[12]+vals[13], vals[10]+vals[11]+vals[14]+vals[15]];
             if (vals.every(v => v > 0) && s.every(x => x === 44) && new Set(vals.filter(v => v > 0)).size === 16) {
                 document.getElementById('mensaje-victoria').style.display = 'block';
+                // EVENTO ANALYTICS: Victoria
+                gtag('event', 'victoria', { 'nombre_juego': 'Sudo44' });
             }
         }
 
         function limpiarUsuario() { document.querySelectorAll('.celda-sudoku').forEach(i => { if(!i.readOnly) i.value = ''; }); actualizarUI(); }
         
         function compartirJuego() { 
+            // EVENTO ANALYTICS: Compartir
+            gtag('event', 'juego_compartido', { 'nombre_juego': 'Sudo44' });
+
             const url = "https://leonidasnamegomez.github.io/Sudo44/"; 
             if (navigator.share) {
                 navigator.share({ title: 'SUDO44', text: '¡Acepta el reto de Leonidas Name!', url: url }).catch(() => {});
