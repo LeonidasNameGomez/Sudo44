@@ -75,7 +75,6 @@
             margin: 10px 0; border: 2px solid #000;
         }
 
-        /* Estilo para el nuevo texto recordatorio */
         .recordatorio-suma {
             color: white; font-size: 0.85rem; font-weight: bold;
             margin: 5px 0 12px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
@@ -125,6 +124,7 @@
 
         .celda-error { background-color: var(--rojo-error) !important; color: #d32f2f !important; }
 
+        /* AJUSTE HOMOGENIZADO: Posición de botones y enlace */
         .enlace-web {
             position: absolute; bottom: calc(72px + env(safe-area-inset-bottom)); 
             color: white; text-decoration: none; font-weight: bold; font-size: 0.8rem; z-index: 20;
@@ -152,10 +152,15 @@
             border-radius: 12px; text-transform: uppercase;
         }
 
+        /* AJUSTE HOMOGENIZADO: Contenedor inferior para botones */
         .area-controles {
-            display: flex; flex-direction: column; align-items: center;
-            width: 100%; margin-top: 10px; padding-bottom: 120px; 
+            width: 100%; display: flex; flex-direction: column; align-items: center;
+            margin-top: auto; padding-bottom: calc(95px + env(safe-area-inset-bottom));
         }
+
+        .fila-botones { display: flex; gap: 8px; width: 92%; max-width: 300px; margin-bottom: 4px; }
+        .btn-half { flex: 1; font-size: 0.85rem; padding: 10px; }
+        .btn-full { width: 92%; max-width: 300px; font-size: 0.85rem; padding: 10px; }
     </style>
 </head>
 <body onclick="iniciarMusica()">
@@ -187,7 +192,8 @@
 
     <div id="pantalla-menu" class="pantalla" style="display: none;">
         <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
-        <div style="position: absolute; bottom: calc(115px + env(safe-area-inset-bottom)); width: 100%; display: flex; flex-direction: column; align-items: center;">
+        <div style="flex: 1;"></div>
+        <div class="area-controles">
             <button onclick="iniciarJuego()">Iniciar Juego</button>
             <select id="dificultad" style="width:85%; max-width:300px; padding:12px; border-radius:10px; margin-top:5px; font-weight:bold; border: 2px solid white; background: white; color: var(--color-primario);">
                 <option value="40">Nivel Fácil</option>
@@ -202,17 +208,15 @@
     <div id="pantalla-juego" class="pantalla" style="display: none;">
         <div class="cabecera-titulo"><h1 class="texto-sombra">SUDO44</h1></div>
         <div id="lista-numeros" class="contenedor-numeros"></div>
-        
         <div class="recordatorio-suma">Recuerda que cada cuadrante debe sumar 44</div>
-        
         <div id="tablero-contenedor"></div>
         
         <div class="area-controles">
-            <div style="display:flex; gap:10px; width:90%; justify-content:center;">
-                <button onclick="location.reload()" style="width:48%; font-size: 0.85rem; padding: 10px;">Menú</button>
-                <button onclick="limpiarUsuario()" style="width:48%; font-size: 0.85rem; padding: 10px;">Limpiar</button>
+            <div class="fila-botones">
+                <button class="btn-half" onclick="location.reload()">MENÚ</button>
+                <button class="btn-half" onclick="limpiarUsuario()">LIMPIAR</button>
             </div>
-            <button onclick="compartirJuego()" style="width:90%; margin-top: 8px; font-size: 0.85rem; padding: 10px;">COMPARTIR JUEGO</button>
+            <button class="btn-full" onclick="compartirJuego()">COMPARTIR JUEGO</button>
         </div>
 
         <a href="https://www.leonidasnamegomez.com" target="_blank" class="enlace-web">www.leonidasnamegomez.com</a>
